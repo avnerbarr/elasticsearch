@@ -24,13 +24,22 @@ data nodes and dedicated {ml} nodes.
 
 To create a dedicated master-eligible node when {xpack} is installed, set:
 
+This is ambiguous when you look at https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-node.html#master-node since there it states:
+
+>>>>To create a dedicated master-eligible node, set:
+
+node.master: true 
+node.data: false 
+node.ingest: false 
+>>>>>>>>>>>>>>>>>>>>>>>> search.remote.connect: false <<<<<<<<<<<<<<<<<<< but when xpack is installed it doesn't state it.
+
 [source,yaml]
 -------------------
 node.master: true <1>
 node.data: false <2>
 node.ingest: false <3>
 node.ml: false <4>
-xpack.ml.enabled: true <5>
+xpack.ml.enabled: true <5> 
 -------------------
 <1> The `node.master` role is enabled by default.
 <2> Disable the `node.data` role (enabled by default).
@@ -60,7 +69,8 @@ node.master: false <1>
 node.data: false <2>
 node.ingest: true <3>
 search.remote.connect: false <4>
-node.ml: false <5>
+node.ml: false <5> <<<<<<<<<<<<<< Also ambiguous when looking at https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-node.html#node-ingest-node
+search.remote.connect: false  <<<<<<<<<<<<<<<< do we need this???? 
 -------------------
 <1> Disable the `node.master` role (enabled by default).
 <2> Disable the `node.data` role (enabled by default).
